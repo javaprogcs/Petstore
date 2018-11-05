@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.csw.dao.MPetMapper">
+
   <resultMap id="BaseResultMap" type="com.csw.entity.MPet">
     <result column="id" jdbcType="INTEGER" property="id" />
     <result column="category_id" jdbcType="INTEGER" property="category_id" />
@@ -9,26 +10,32 @@
     <result column="tags" jdbcType="INTEGER" property="tags" />
     <result column="status" jdbcType="VARCHAR" property="status" />
   </resultMap>
-  <insert id="insert" parameterType="com.csw.entity.MPet">
+
+  <insert id="insert" parameterType="int">
     insert into m_pet (id, category_id, name, 
       photo_urls, tags, status
       )
-    values (#{id,jdbcType=INTEGER}, #{category_id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{photo_urls,jdbcType=VARCHAR}, #{tags,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}
+    values
+    <foreach item="p" collection="list" separator=",">
+    (#{p.id,jdbcType=INTEGER}, #{p.category_id,jdbcType=INTEGER}, #{p.name,jdbcType=VARCHAR},
+      #{p.photo_urls,jdbcType=VARCHAR}, #{p.tags,jdbcType=INTEGER}, #{p.status,jdbcType=VARCHAR}
       )
+    </foreach>
   </insert>
+
   <select id="selectAll" resultMap="BaseResultMap">
     select id, category_id, name, photo_urls, tags, status
     from m_pet
   </select>
-  <update id="updateByPrimaryKey" parameterType="com.csw.entity.MPet">
+
+  <update id="updateByPrimaryKey"  parameterType="com.csw.entity.MPet">
     update m_pet
     set id=#{id,jdbcType = INTEGER},
     category_id=#{category_id,jdbcType = INTEGER},
     name =#{name,jdbcType= varchar(20)},
     photo_urls = #{photo_urls,jdbcType = varchar(20)},
     tags = #{tags,jdbcType = int},
-    status = #{status,jdbcType= enum('可用','待定','已出售')};
+    status = #{status,jdbcType= enum('已出售')};
   </update>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -36,8 +43,8 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <select id="selectId" resultMap="BaseResultMap">
-    select * from m_pet where id = #{id}
+  <select id="selectId" parameterType="int" resultMap="BaseResultMap">
+      select * from m_pet where id = #{id}
   </select>
 
 </mapper>

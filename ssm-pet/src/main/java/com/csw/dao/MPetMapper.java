@@ -5,7 +5,7 @@ import com.csw.entity.MPet;
 import java.util.List;
 
 public interface MPetMapper {
-    int insert(MPet record); //将宠物添加到商店
+    int insert(List<MPet> list); //将宠物添加到商店
 
     List<MPet> selectAll(); // 查询宠物信息
 
@@ -13,7 +13,7 @@ public interface MPetMapper {
 
     int deleteByPrimaryKey(int id); // 删除宠物
 
-    int selectId(int id);
+    List<MPet> selectId(int id);
 
 
 }

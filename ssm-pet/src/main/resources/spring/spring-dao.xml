@@ -7,10 +7,14 @@
     <!--使用外部文件-->
     <context:property-placeholder location="classpath:jdbc.properties" />
 
+    <context:component-scan base-package="com.csw.dao"/>
+
     <!--创建数据源-->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="org.mariadb.jdbc.Driver" />
-        <property name="jdbcUrl" value="jdbc:mariadb://localhost:3306/Models" />
+
+
+        <property name="jdbcUrl" value="jdbc:mariadb://localhost:3306/models" />
         <property name="user" value="root" />
         <property name="password" value="13794709305" />
 

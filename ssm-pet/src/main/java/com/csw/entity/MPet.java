@@ -13,6 +13,15 @@ public class MPet {
 
     private String status;
 
+    public MPet(Integer id, Integer category_id, String name, String photo_urls, Integer tags, String status) {
+        this.id = id;
+        this.category_id = category_id;
+        this.name = name;
+        this.photo_urls = photo_urls;
+        this.tags = tags;
+        this.status = status;
+    }
+
     public Integer getId() {
         return id;
     }

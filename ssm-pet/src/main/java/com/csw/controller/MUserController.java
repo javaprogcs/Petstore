@@ -22,6 +22,6 @@ public class MUserController {
     public String selectAll(Model model){
         List<MUser> mUsers = mUserMapper.selectAll();
         model.addAttribute(mUsers);
-        return "/index";
+        return "pet";
     }
 }
